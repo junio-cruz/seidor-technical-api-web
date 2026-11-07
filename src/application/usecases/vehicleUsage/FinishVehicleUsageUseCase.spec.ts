@@ -50,4 +50,11 @@ describe('FinishVehicleUsageUseCase', () => {
 
         expect(response).toBeTruthy();
     });
+
+    it('should instantiate with default dependencies', () => {
+        // @ts-ignore
+        const defaultSut = new FinishVehicleUsageUseCase(logger);
+
+        expect(defaultSut).toBeDefined();
+    });
 });

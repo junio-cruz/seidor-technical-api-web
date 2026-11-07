@@ -41,4 +41,11 @@ describe('CreateDriverUseCase', () => {
 
         expect(driver).toHaveProperty('driver_id');
     });
+
+    it('should instantiate with default dependencies', () => {
+        // @ts-ignore
+        const defaultSut = new CreateDriverUseCase(fakeLogger);
+
+        expect(defaultSut).toBeDefined();
+    });
 });

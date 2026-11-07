@@ -79,4 +79,11 @@ describe('CreateVehicleController', () => {
 
     expect(result).toBeInstanceOf(HttpError);
   });
+
+  it('should instantiate with default dependencies', () => {
+    // @ts-ignore
+    const defaultSut = new CreateVehicleController(logger);
+
+    expect(defaultSut).toBeDefined();
+  });
 });

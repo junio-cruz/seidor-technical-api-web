@@ -51,4 +51,11 @@ describe('SignUpUseCase', () => {
 
         expect(response).toBeTruthy();
     });
+
+    it('should instantiate with default dependencies', () => {
+        // @ts-ignore
+        const defaultSut = new UpdateDriverUseCase(logger);
+
+        expect(defaultSut).toBeDefined();
+    });
 });

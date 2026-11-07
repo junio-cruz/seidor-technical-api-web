@@ -54,4 +54,11 @@ describe('ListVehiclesUseCase', () => {
         expect(listVehicle).toHaveProperty('all_count');
         expect(listVehicle).toHaveProperty('all_pages_count');
     });
+
+    it('should instantiate with default dependencies', () => {
+        // @ts-ignore
+        const defaultSut = new ListVehiclesUseCase(logger);
+
+        expect(defaultSut).toBeDefined();
+    });
 });

@@ -33,7 +33,7 @@ export class ListVehicleUsageController implements IHttpController {
 
   public async handle(request: HttpRequest): Promise<HttpResponse | HttpError> {
     let { page, page_size } =
-      request.query as RequestQueryParameters;
+      (request.query || {}) as RequestQueryParameters;
 
 
     const requestValidation = await this.requestValidator.validate(

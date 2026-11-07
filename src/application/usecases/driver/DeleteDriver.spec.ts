@@ -37,4 +37,11 @@ describe('DeleteDriverUseCase', () => {
 
         expect(response).toHaveProperty('driver_id');
     });
+
+    it('should instantiate with default dependencies', () => {
+        // @ts-ignore
+        const defaultSut = new DeleteDriverUseCase(fakeLogger);
+
+        expect(defaultSut).toBeDefined();
+    });
 });

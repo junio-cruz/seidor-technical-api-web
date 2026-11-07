@@ -35,7 +35,7 @@ export class ListDriversController implements IHttpController {
 
   public async handle(request: HttpRequest): Promise<HttpResponse | HttpError> {
     let { name, page, page_size } =
-      request.query as RequestQueryParameters;
+      (request.query || {}) as RequestQueryParameters;
 
 
     const requestValidation = await this.requestValidator.validate(

@@ -88,4 +88,58 @@ describe('ListVehiclesController', () => {
 
         expect(result).toBeInstanceOf(HttpError);
     });
+
+    it('should handle request without query params', async () => {
+        const emptyRequest: HttpRequest = {
+            headers: {},
+            context: {},
+            params: {},
+            body: {},
+            state: {},
+        };
+        const spyUseCase = jest.spyOn(useCase, 'execute').mockResolvedValue({
+            page: 1,
+            page_data: [],
+            page_count: 0,
+            all_count: 0,
+            all_pages_count: 0,
+        });
+
+        const result = await sut.handle(emptyRequest);
+
+        expect(result).toBeInstanceOf(HttpResponse);
+        expect(spyUseCase).toHaveBeenCalledWith(
+            expect.objectContaining({
+                order: { created_at: 'asc' },
+                pagination: { page: 1, page_size: 10 },
+            }),
+        );
+    });
+
+    it('should handle request with order params', async () => {
+        const orderRequest: HttpRequest = {
+            ...request,
+            query: { orderField: 'plate', orderDirection: 'desc' },
+        };
+        const spyUseCase = jest.spyOn(useCase, 'execute').mockResolvedValue({
+            page: 1,
+            page_data: [],
+            page_count: 0,
+            all_count: 0,
+            all_pages_count: 0,
+        });
+
+        await sut.handle(orderRequest);
+
+        expect(spyUseCase).toHaveBeenCalledWith(
+            expect.objectContaining({ order: { plate: 'desc' } }),
+        );
+    });
+
+    it('should instantiate with default dependencies', () => {
+        // @ts-ignore
+        const defaultSut = new ListVehiclesController(logger);
+
+        expect(defaultSut).toBeDefined();
+    });
 });

@@ -77,4 +77,11 @@ describe('CreateDriverController', () => {
 
     expect(result).toBeInstanceOf(HttpError);
   });
+
+  it('should instantiate with default dependencies', () => {
+    // @ts-ignore
+    const defaultSut = new CreateDriverController(logger);
+
+    expect(defaultSut).toBeDefined();
+  });
 });

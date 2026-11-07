@@ -82,4 +82,20 @@ describe('DeleteVehicleController', () => {
         expect(result).toBeInstanceOf(HttpError);
     });
 
+    it('should be able return HttpNotFoundError', async () => {
+        jest.spyOn(useCase, 'execute').mockResolvedValue(null);
+
+        const result = await sut.handle(request);
+
+        expect(result).toBeInstanceOf(HttpError);
+        expect((result as HttpError).statusCode).toBe(404);
+    });
+
+    it('should instantiate with default dependencies', () => {
+        // @ts-ignore
+        const defaultSut = new DeleteVehicleController(logger);
+
+        expect(defaultSut).toBeDefined();
+    });
+
 });

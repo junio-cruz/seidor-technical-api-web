@@ -61,4 +61,11 @@ describe('CreateVehicleUsageUseCase', () => {
 
         expect(vehicleUsage).toHaveProperty('vehicle_usage_id');
     });
+
+    it('should instantiate with default dependencies', () => {
+        // @ts-ignore
+        const defaultSut = new CreateVehicleUsageUseCase(fakeLogger);
+
+        expect(defaultSut).toBeDefined();
+    });
 });

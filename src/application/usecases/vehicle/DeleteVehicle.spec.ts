@@ -37,4 +37,11 @@ describe('DeleteVehicleUseCase', () => {
 
         expect(delete_vehicle_id).toHaveProperty('vehicle_id');
     });
+
+    it('should instantiate with default dependencies', () => {
+        // @ts-ignore
+        const defaultSut = new DeleteVehicleUseCase(fakeLogger);
+
+        expect(defaultSut).toBeDefined();
+    });
 });

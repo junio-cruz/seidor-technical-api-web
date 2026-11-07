@@ -36,10 +36,6 @@ export class ControllerErrorHandlerDecorator {
         return new HttpUnauthorizedError(error.message);
       }
 
-      if (error.message === 'NotAuthorizedException: Invalid Refresh Token') {
-        return new HttpUnauthorizedError('Invalid Refresh Token');
-      }
-
       if (['USER_NOT_FOUND', 'ADMIN_USER_NOT_FOUND'].includes(error.message)) {
         return new HttpNotFoundError(error.message);
       }

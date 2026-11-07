@@ -93,4 +93,33 @@ describe('CreateVehicleUsageController', () => {
 
     expect(result).toBeInstanceOf(HttpError);
   });
+
+  it('should return HttpConflictError when vehicle usage already exists', async () => {
+    jest.spyOn(useCase, 'execute').mockRejectedValue(
+      new Error('Vehicle usage already exists'),
+    );
+
+    const result = await sut.handle(request);
+
+    expect(result).toBeInstanceOf(HttpError);
+    expect((result as HttpError).statusCode).toBe(409);
+  });
+
+  it('should return HttpInternalServerError on unexpected errors', async () => {
+    jest.spyOn(useCase, 'execute').mockRejectedValue(
+      new Error('unexpected error'),
+    );
+
+    const result = await sut.handle(request);
+
+    expect(result).toBeInstanceOf(HttpError);
+    expect((result as HttpError).statusCode).toBe(500);
+  });
+
+  it('should instantiate with default dependencies', () => {
+    // @ts-ignore
+    const defaultSut = new CreateVehicleUsageController(logger);
+
+    expect(defaultSut).toBeDefined();
+  });
 });

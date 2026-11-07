@@ -37,7 +37,7 @@ export class ListVehiclesController implements IHttpController {
 
   public async handle(request: HttpRequest): Promise<HttpResponse | HttpError> {
     let { mark, color, plate, page, page_size } =
-      request.query as RequestQueryParameters;
+      (request.query || {}) as RequestQueryParameters;
 
 
     const requestValidation = await this.requestValidator.validate(
