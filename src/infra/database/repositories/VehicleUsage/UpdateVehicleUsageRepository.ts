@@ -19,7 +19,7 @@ export class UpdateVehicleUsageRepository implements IUpdateVehicleUsageReposito
     const database_session_updated = databaseSession.map(vehicle_usage => {
         if (vehicle_usage.vehicle_usage_id === input.vehicle_usage_id) {
           response = {
-            vehicle_usage_id: input.vehicle_usage_id,
+            ...vehicle_usage,
             ...input.to_update,
           }
           return response

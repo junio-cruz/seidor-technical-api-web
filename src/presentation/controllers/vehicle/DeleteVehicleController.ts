@@ -34,7 +34,7 @@ export class DeleteVehicleController implements IHttpController {
   }
 
   public async handle(request: HttpRequest): Promise<HttpResponse | HttpError> {
-    const { vehicle_id } = request.body as RequestBodyParams;
+    const { vehicle_id } = request.params as RequestBodyParams;
 
     const requestValidation = await this.requestValidator.validate(
       {

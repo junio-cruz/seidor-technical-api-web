@@ -10,7 +10,8 @@ export const nameValidatorSchema = ({ optional = false }) => ({
 });
 
 export const vehicleValidatorSchema = ({ optional = false }) => ({
-  type: 'objetc',
+
+    type: 'object',
   props: {
     vehicle_id: uuidV4ValidatorSchema({ optional: false }),
     plate: stringValidatorSchema({ optional: false }),
@@ -21,7 +22,7 @@ export const vehicleValidatorSchema = ({ optional = false }) => ({
 });
 
 export const driverValidatorSchema = ({ optional = false }) => ({
-  type: 'objetc',
+  type: 'object',
   props: {
     "driver_id": uuidV4ValidatorSchema({ optional: false }),
     name: nameValidatorSchema({ optional: false }),

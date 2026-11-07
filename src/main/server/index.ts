@@ -109,7 +109,7 @@ server.route(
 
 server.route(
   'post',
-  '/vehicleUsage/finish/:vehicle_id',
+  '/vehicleUsage/finish/:vehicle_usage_id',
   new ControllerErrorHandlerDecorator(logger, finishVehicleUsageController),
 );
 server.route(
