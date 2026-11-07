@@ -9,11 +9,11 @@
     "dev:server": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/main/server/local.ts"
   },
   "dependencies": {
-    "uuid": "^9.0.1",
-    "dotenv": "^16.3.2",
-    "fastify": "^4.25.2",
-    "@fastify/cors": "^8.5.0",
-    "fastest-validator": "^1.17.0"
+    "uuid": "14.0.3",
+    "dotenv": "18.0.9",
+    "fastify": "5.12.8",
+    "@fastify/cors": "11.4.1",
+    "fastest-validator": "1.19.1"
   },
   "devDependencies": {
     "@sentry/esbuild-plugin": "^2.10.3",

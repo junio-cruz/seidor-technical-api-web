@@ -27,7 +27,7 @@ const sharedConfig = {
     }),
     sentryEsbuildPlugin({
       org: "SEIDOR",
-      project: "users-service",
+      project: "web-api",
       telemetry: false,
       authToken: SENTRY_AUTH_TOKEN,
     }),
