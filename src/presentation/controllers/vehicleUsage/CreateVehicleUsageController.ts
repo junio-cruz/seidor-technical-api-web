@@ -1,6 +1,6 @@
 import { HttpRequest } from '../../http/request';
 import { HttpOkResponse, HttpResponse } from '../../http/response';
-import { HttpBadRequestError, HttpError } from '../../http/errors';
+import { HttpBadRequestError, HttpConflictError, HttpError, HttpInternalServerError } from '../../http/errors';
 import { IHttpController } from '../../../application/protocols/http/IHttp';
 import {
   ICreateVehicleUsageUseCase,
@@ -57,12 +57,20 @@ export class CreateVehicleUsageController implements IHttpController {
       return new HttpBadRequestError(requestValidation.errors);
     }
 
-    const vehicleUsage = await this.createVehicleUsageUserUseCase.execute({
+  
+
+    try {
+        const vehicleUsage = await this.createVehicleUsageUserUseCase.execute({
       driver,
       vehicle,
       use_reason,
     });
-
-    return new HttpOkResponse(vehicleUsageResolver(vehicleUsage));
+      return new HttpOkResponse(vehicleUsageResolver(vehicleUsage));
+    } catch (error: unknown) {
+      if (error instanceof Error && error.message === 'Vehicle usage already exists') {
+        return new HttpConflictError('VEHICLE_USAGE_ALREADY_EXISTS');
+      }
+      return new HttpInternalServerError(new Error('INTERNAL_SERVER_ERROR'));
+    }
   }
 }

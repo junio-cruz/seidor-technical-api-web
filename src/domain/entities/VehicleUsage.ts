@@ -7,7 +7,7 @@ export type VehicleUsage = {
   vehicle: Vehicle;
   use_reason: string;
   use_start_date: Date;
-  use_end_date: Date;
+  use_end_date: Date | null;
 };
 
 export const vehicleUsageResolver = (vehicleUsage: VehicleUsage): VehicleUsage => {

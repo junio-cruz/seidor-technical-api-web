@@ -5,6 +5,17 @@ module.exports = {
   coverageDirectory: './coverage',
   coverageReporters: ['text-summary', 'lcov'],
   preset: 'ts-jest',
+  transform: {
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: {
+          module: 'commonjs',
+          moduleResolution: 'node',
+        },
+      },
+    ],
+  },
   testEnvironment: 'node',
   testMatch: ['**/*.spec.ts'],
 };

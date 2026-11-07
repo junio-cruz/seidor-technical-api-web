@@ -26,15 +26,16 @@ const data: CreateVehicleUsageUseCaseInput = {
     }
 };
 
-describe('CreateaVehicleUsageUseCase', () => {
+describe('CreateVehicleUsageUseCase', () => {
     beforeEach(() => {
         fakeCreateaVehicleUsageRepository = new FakeCreateVehicleUsageRepository();
         fakeFindVehicleUsageByDriverRepository = new FakeFindVehicleUsageByDriverRepository();
         fakeLogger = new FakeLogger();
         fakeGuidGenerator = new FakeGuidGenerator();
+        jest.spyOn(fakeFindVehicleUsageByDriverRepository, 'execute').mockResolvedValue(null);
 
         // @ts-ignore
-        sut = new CreateaVehicleUsageUseCase(fakeLogger, fakeGuidGenerator, fakeFindVehicleUsageByDriverRepository,fakeCreateaVehicleUsageRepository);
+        sut = new CreateVehicleUsageUseCase(fakeLogger, fakeGuidGenerator, fakeFindVehicleUsageByDriverRepository,fakeCreateaVehicleUsageRepository);
     });
 
     it('should call Logger.getChild', async () => {
@@ -50,15 +51,14 @@ describe('CreateaVehicleUsageUseCase', () => {
     });
 
       it('should be able return erro if vehicle usage already exist for driver', async () => {
-        const error = new Error('Vehicle usage already exist for driver');
-        expect(await sut.execute(data)).toThrow(error);
+        jest.spyOn(fakeFindVehicleUsageByDriverRepository, 'execute').mockResolvedValue({} as any);
+
+        await expect(sut.execute(data)).rejects.toThrow('Vehicle usage already exists');
     });
 
     it('should be able to create an VehicleUsage', async () => {
-        const delete_user_id = await sut.execute(data);
+        const vehicleUsage = await sut.execute(data);
 
-        jest.spyOn(fakeFindVehicleUsageByDriverRepository, 'execute').mockResolvedValue(null);
-
-        expect(delete_user_id).toHaveProperty('vehicle_usage_id');
+        expect(vehicleUsage).toHaveProperty('vehicle_usage_id');
     });
 });

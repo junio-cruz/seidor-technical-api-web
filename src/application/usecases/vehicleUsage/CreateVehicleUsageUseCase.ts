@@ -15,7 +15,7 @@ export type CreateVehicleUsageUseCaseInput = {
     vehicle: Vehicle;
 };
     
-export type CreateVehicleUsageUseCaseOutput = Omit<VehicleUsage, 'useStartDate' | 'useEndDate'>;
+export type CreateVehicleUsageUseCaseOutput = VehicleUsage;
 
 export interface ICreateVehicleUsageUseCase {
   execute(input: CreateVehicleUsageUseCaseInput): Promise<CreateVehicleUsageUseCaseOutput>;
@@ -47,6 +47,7 @@ export class CreateVehicleUsageUseCase implements ICreateVehicleUsageUseCase {
       driver: input.driver,
       use_reason: input.use_reason,
       use_start_date: new Date(),
+      use_end_date: null,
       vehicle: input.vehicle,
     });
     this.logger.debug('creaete vehicleUsage repository response', vehicleUsage);

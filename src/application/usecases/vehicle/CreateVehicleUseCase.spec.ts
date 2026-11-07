@@ -21,7 +21,7 @@ describe('CreateVehicleUseCase', () => {
         fakeGuidGenerator = new FakeGuidGenerator();
 
         // @ts-ignore
-        sut = new CreateaVehicleUseCase(fakeLogger, fakeGuidGenerator, fakeCreateaVehicleRepository);
+        sut = new CreateVehicleUseCase(fakeLogger, fakeGuidGenerator, fakeCreateaVehicleRepository);
     });
 
     it('should call Logger.getChild', async () => {

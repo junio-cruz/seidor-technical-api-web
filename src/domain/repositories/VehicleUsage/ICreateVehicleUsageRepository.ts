@@ -1,8 +1,8 @@
 import { VehicleUsage } from '../../entities/VehicleUsage';
 
-export type CreateVehicleUsageRepositoryInput = Omit<VehicleUsage, 'useStartDate' | 'useEndDate'>;
+export type CreateVehicleUsageRepositoryInput = VehicleUsage;
 
-export type CreateVehicleUsageRepositoryOutput = Omit<VehicleUsage, 'useStartDate' | 'useEndDate'>;
+export type CreateVehicleUsageRepositoryOutput = VehicleUsage;
 export interface ICreateVehicleUsageRepository {
   execute(
     input: CreateVehicleUsageRepositoryInput,

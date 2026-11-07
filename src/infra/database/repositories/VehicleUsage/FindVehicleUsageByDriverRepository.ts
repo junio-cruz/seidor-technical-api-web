@@ -10,7 +10,7 @@ export class FindVehicleUsageByDriverRepository implements IFindVehicleUsageByDr
   public async execute(
     input: FindVehicleUsageByDriverRepositoryInput,
   ): Promise<FindVehicleUsageByDriverRepositoryOutput> {
-    const databaseSession: Omit<VehicleUsage, 'useStartDate' | 'useEndDate'>[] = databaseInstance.getSession();
+    const databaseSession: VehicleUsage[] = databaseInstance.getSession();
     const vehicleUsage = databaseSession.find((vehicleUsage) => vehicleUsage.driver.name === input.driver_name);
     return vehicleUsage || null;
   } 

@@ -10,12 +10,12 @@ const data: FinishVehicleUsageUseCaseInput = {
     vehicle_usage_id: "30777c9d-4a8e-4897-962f-21be1d166fbe",
 };
 
-describe('SignUpUseCase', () => {
+describe('FinishVehicleUsageUseCase', () => {
     beforeEach(() => {
         fakeUpdateVehicleUsageRepository = new FakeUpdateVehicleUsageRepository();
         logger = new FakeLogger();
         // @ts-ignore
-        sut = new UpdateVehicleUsageUseCase(logger, fakeUpdateVehicleUsageRepository);
+        sut = new FinishVehicleUsageUseCase(logger, fakeUpdateVehicleUsageRepository);
     });
 
     it('should calls UpdateVehicleUsageRepository.execute with correct parameters', async () => {
@@ -27,7 +27,7 @@ describe('SignUpUseCase', () => {
         expect(spyFakeUpdateVehicleUsageRepository).toHaveBeenCalledWith({
             vehicle_usage_id: data.vehicle_usage_id,
             to_update: {
-                use_end_date: new Date(),
+                use_end_date: expect.any(Date),
             },
         });
     });

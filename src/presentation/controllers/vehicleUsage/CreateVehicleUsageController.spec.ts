@@ -6,6 +6,8 @@ import { FakeValidator } from '../../../infra/validators/FakeValidator';
 import { CreateVehicleUsageController } from './CreateVehicleUsageController';
 import { CreateVehicleUsageUseCase } from '../../../application/usecases/vehicleUsage/CreateVehicleUsageUseCase';
 import { FakeCreateVehicleUsageRepository } from '../../../infra/database/repositories/fakes/vehicleUsage/FakeCreateVehicleUsageRepository';
+import { FakeFindVehicleUsageByDriverRepository } from '../../../infra/database/repositories/fakes/vehicleUsage/FakeFindVehicleUsageByDriverRepository';
+import { FakeGuidGenerator } from '../../../infra/guidGenerator/FakeGuidGenerator';
 import { VehicleUsage } from '../../../domain/entities/VehicleUsage';
 
 let logger: FakeLogger;
@@ -13,6 +15,8 @@ let validator: FakeValidator;
 let sut: CreateVehicleUsageController;
 let useCase: CreateVehicleUsageUseCase;
 let createVehicleUsageRepository: FakeCreateVehicleUsageRepository;
+let findVehicleUsageByDriverRepository: FakeFindVehicleUsageByDriverRepository;
+let guidGenerator: FakeGuidGenerator;
 
 const data = {
   driver: {
@@ -43,8 +47,10 @@ describe('CreateVehicleUsageController', () => {
     logger = new FakeLogger();
     validator = new FakeValidator();
     createVehicleUsageRepository = new FakeCreateVehicleUsageRepository();
+    findVehicleUsageByDriverRepository = new FakeFindVehicleUsageByDriverRepository();
+    guidGenerator = new FakeGuidGenerator();
     // @ts-ignore
-    useCase = new CreateVehicleUsageUseCase(logger, createVehicleUsageRepository);
+    useCase = new CreateVehicleUsageUseCase(logger, guidGenerator, findVehicleUsageByDriverRepository, createVehicleUsageRepository);
     // @ts-ignore
     sut = new CreateVehicleUsageController(logger, validator, useCase);
     jest.spyOn(useCase, 'execute').mockResolvedValue({} as VehicleUsage);
