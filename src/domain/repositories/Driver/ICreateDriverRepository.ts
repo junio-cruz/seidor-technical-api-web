@@ -1,8 +1,6 @@
 import { Driver } from '../../entities/Driver';
   
-export type CreateDriverRepositoryInput = {
-  name: string;
-};
+export type CreateDriverRepositoryInput = Driver;
 
 export type CreateDriverRepositoryOutput = Driver;
 export interface ICreateDriverRepository {

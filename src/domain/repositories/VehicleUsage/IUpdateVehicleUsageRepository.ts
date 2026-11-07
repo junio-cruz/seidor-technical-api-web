@@ -1,9 +1,8 @@
 import { VehicleUsage } from '../../entities/VehicleUsage';
 
 export type UpdateVehicleUsageRepositoryInput = {
-  driver_name: string;
+  vehicle_usage_id: string;
   to_update: {
-    use_start_date?: Date;
     use_end_date?: Date;
   };
 };
