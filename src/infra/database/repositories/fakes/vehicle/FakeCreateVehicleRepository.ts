@@ -1,5 +1,5 @@
 
-import {CreateVehicleRepositoryInput, CreateVehicleRepositoryOutput, ICreateVehicleRepository} from "../../../../../domain/repositories/Vehicle/ICreateVehicleRepository
+import {CreateVehicleRepositoryInput, CreateVehicleRepositoryOutput, ICreateVehicleRepository} from '../../../../../domain/repositories/Vehicle/ICreateVehicleRepository';
 
 export class FakeCreateVehicleRepository implements ICreateVehicleRepository {
   public async execute(

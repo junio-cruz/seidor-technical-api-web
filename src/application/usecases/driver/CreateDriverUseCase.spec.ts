@@ -3,9 +3,11 @@ import { v4 as uuidV4 } from 'uuid';
 import { FakeLogger } from '../../../infra/logger/FakeLogger';
 import { CreateDriverUseCaseInput, CreateDriverUseCase } from './CreateDriverUseCase';
 import { FakeCreateDriverRepository } from '../../../infra/database/repositories/fakes/driver/FakeCreateDriverRepository';
+import { FakeGuidGenerator } from '../../../infra/guidGenerator/FakeGuidGenerator';
 
 let fakeLogger: FakeLogger;
 let fakeCreateDriverRepository: FakeCreateDriverRepository;
+let fakeGuidGenerator: FakeGuidGenerator;
 let sut: CreateDriverUseCase;
 
 const data: CreateDriverUseCaseInput = {
@@ -16,8 +18,10 @@ describe('CreateDriverUseCase', () => {
     beforeEach(() => {
         fakeCreateDriverRepository = new FakeCreateDriverRepository();
         fakeLogger = new FakeLogger();
+        fakeGuidGenerator = new FakeGuidGenerator();
+
         // @ts-ignore
-        sut = new CreateDriverUseCase(fakeLogger, fakeCreateDriverRepository);
+        sut = new CreateDriverUseCase(fakeLogger, fakeGuidGenerator, fakeCreateDriverRepository);
     });
 
     it('should call Logger.getChild', async () => {

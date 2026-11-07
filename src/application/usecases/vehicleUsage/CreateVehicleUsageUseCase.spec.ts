@@ -4,10 +4,12 @@ import { FakeLogger } from '../../../infra/logger/FakeLogger';
 import { CreateVehicleUsageUseCaseInput, CreateVehicleUsageUseCase } from './CreateVehicleUsageUseCase';
 import { FakeCreateVehicleUsageRepository } from '../../../infra/database/repositories/fakes/vehicleUsage/FakeCreateVehicleUsageRepository';
 import { FakeFindVehicleUsageByDriverRepository } from '../../../infra/database/repositories/fakes/vehicleUsage/FakeFindVehicleUsageByDriverRepository';
+import { FakeGuidGenerator } from '../../../infra/guidGenerator/FakeGuidGenerator';
 
 let fakeLogger: FakeLogger;
 let fakeFindVehicleUsageByDriverRepository: FakeFindVehicleUsageByDriverRepository
 let fakeCreateaVehicleUsageRepository: FakeCreateVehicleUsageRepository;
+let fakeGuidGenerator: FakeGuidGenerator;
 let sut: CreateVehicleUsageUseCase;
 
 const data: CreateVehicleUsageUseCaseInput = {
@@ -29,8 +31,10 @@ describe('CreateaVehicleUsageUseCase', () => {
         fakeCreateaVehicleUsageRepository = new FakeCreateVehicleUsageRepository();
         fakeFindVehicleUsageByDriverRepository = new FakeFindVehicleUsageByDriverRepository();
         fakeLogger = new FakeLogger();
+        fakeGuidGenerator = new FakeGuidGenerator();
+
         // @ts-ignore
-        sut = new CreateaVehicleUsageUseCase(fakeLogger, fakeFindVehicleUsageByDriverRepository,fakeCreateaVehicleUsageRepository);
+        sut = new CreateaVehicleUsageUseCase(fakeLogger, fakeGuidGenerator, fakeFindVehicleUsageByDriverRepository,fakeCreateaVehicleUsageRepository);
     });
 
     it('should call Logger.getChild', async () => {

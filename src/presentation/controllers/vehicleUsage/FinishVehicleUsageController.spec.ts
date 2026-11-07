@@ -3,7 +3,7 @@ import { HttpRequest } from '../../http/request';
 import { HttpResponse } from '../../http/response';
 import { FakeLogger } from '../../../infra/logger/FakeLogger';
 import { FakeValidator } from '../../../infra/validators/FakeValidator';
-import { FinishVehicleController } from './FinishVehicleUsageController';
+import { FinishVehicleUsageController } from './FinishVehicleUsageController';
 import { FinishVehicleUsageUseCase, FinishVehicleUsageUseCaseInput } from '../../../application/usecases/vehicleUsage/FinishVehicleUsageUseCase';
 import { FakeUpdateVehicleUsageRepository } from '../../../infra/database/repositories/fakes/vehicleUsage/FakeUpdateVehicleUsageRepository';
 
@@ -11,7 +11,7 @@ let logger: FakeLogger;
 let validator: FakeValidator;
 let updateVehicleUsageRepository: FakeUpdateVehicleUsageRepository;
 let useCase: FinishVehicleUsageUseCase;
-let sut: FinishVehicleController;
+let sut: FinishVehicleUsageController;
 
 
 const data: FinishVehicleUsageUseCaseInput = {

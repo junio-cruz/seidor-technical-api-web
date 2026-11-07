@@ -1,40 +1,40 @@
 import { v4 as uuidV4 } from 'uuid';
 
-import { FakeLogger } from '../../infra/logger/FakeLogger';
-import { GetUserUseCaseInput, GetUserUseCase } from './GetUserUseCase';
-import { FakeGetUserRepository } from '../../infra/database/repositories/fakes/FakeGetUserRepository';
-import { FakeUpdateUserRepository } from '../../infra/database/repositories/fakes/FakeUpdateUserRepository';
+import { FakeLogger } from '../../../infra/logger/FakeLogger';
+import { GetDriverUseCaseInput, GetDriverUseCase } from './GetDriverUseCase';
+import { FakeGetDriverRepository } from '../../../infra/database/repositories/fakes/driver/FakeGetDriverRepository';
+import { FakeUpdateDriverRepository } from '../../../infra/database/repositories/fakes/driver/FakeUpdateDriverRepository';
 
 let logger : FakeLogger;
-let fakeGetUserRepository: FakeUpdateUserRepository;
-let sut: GetUserUseCase;
+let fakeGetDriverRepository: FakeUpdateDriverRepository;
+let sut: GetDriverUseCase;
 
-const data: GetUserUseCaseInput = {
-    user_id: uuidV4(),
+const data: GetDriverUseCaseInput = {
+    driver_id: uuidV4(),
 };
 
-describe('GetUserUseCase', () => {
+describe('GetDriverUseCase', () => {
     beforeEach(() => {
         logger = new FakeLogger();
-        fakeGetUserRepository = new FakeGetUserRepository();
+        fakeGetDriverRepository = new FakeGetDriverRepository();
         // @ts-ignore
-        sut = new GetUserUseCase(logger, fakeGetUserRepository);
+        sut = new GetDriverUseCase(logger, fakeGetDriverRepository);
     });
 
     it('should call Logger.getChild', async () => {
         expect(logger.getChild('')).toBeInstanceOf(FakeLogger);
     });
 
-    it('should calls GetUserRepository.execute with correct parameters', async () => {
-        const spyFakeGetUserRepository = jest.spyOn(fakeGetUserRepository, 'execute');
+    it('should calls GetDriverRepository.execute with correct parameters', async () => {
+        const spyFakeGetDriverRepository = jest.spyOn(fakeGetDriverRepository, 'execute');
 
         await sut.execute(data);
 
-        expect(spyFakeGetUserRepository).toHaveBeenCalledWith({ user_id: data.user_id });
+        expect(spyFakeGetDriverRepository).toHaveBeenCalledWith({ driver_id: data.driver_id });
     });
 
-    it('should calls GetUserRepository.execute return null if user not found', async () => {
-        jest.spyOn(fakeGetUserRepository, 'execute').mockResolvedValue(null);
+    it('should calls GetDriverRepository.execute return null if Driver not found', async () => {
+        jest.spyOn(fakeGetDriverRepository, 'execute').mockResolvedValue(null);
         expect(await sut.execute(data)).toBeNull();
     });
 
@@ -46,9 +46,9 @@ describe('GetUserUseCase', () => {
         expect(spyFakeLogger).toHaveBeenCalledTimes(3);
     });
 
-    it('should be able to return an user', async () => {
-        const user = await sut.execute(data);
+    it('should be able to return an driver', async () => {
+        const driver = await sut.execute(data);
 
-        expect(user).toHaveProperty('user_id');
+        expect(driver).toHaveProperty('driver_id');
     });
 });

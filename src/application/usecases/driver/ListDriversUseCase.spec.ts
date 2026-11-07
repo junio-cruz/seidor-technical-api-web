@@ -8,8 +8,7 @@ let logger: FakeLogger;
 
 const data: ListDriversUseCaseInput = {
     filter: {
-        mark: 'Chevrolet',
-        color: 'Prata',
+        name: 'Junio Cruz',
     },
     pagination: {
         page: 1,

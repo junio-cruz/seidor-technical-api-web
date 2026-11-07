@@ -1,14 +1,14 @@
 import { v4 as uuidV4 } from 'uuid';
 
 import { FakeLogger } from '../../../infra/logger/FakeLogger';
-import { DeleteDriverUseCaseInput, DeleteDriverUseCase } from './DeleteDriverUseCase';
+import { DeleteDriverUseCaseInput, DeleteDriverUseCase, IDeleteDriverUseCase } from './DeleteDriverUseCase';
 import { FakeDeleteDriverRepository } from '../../../infra/database/repositories/fakes/driver/FakeDeleteDriverRepository';
 
 let fakeLogger: FakeLogger;
 let fakeDeleteDriverRepository: FakeDeleteDriverRepository;
-let sut: DeleteDriverUseCase;
+let sut: IDeleteDriverUseCase;
 
-const data: DeleteDriverUseCaseInput = {
+const input: DeleteDriverUseCaseInput = {
     driver_id: uuidV4(),
 };
 
@@ -27,14 +27,14 @@ describe('DeleteDriverUseCase', () => {
     it('should call Logger.debug at least three times', async () => {
         const spyFakeLoggerDebug = jest.spyOn(fakeLogger, 'debug');
 
-        await sut.execute(data);
+        await sut.execute(input);
 
         expect(spyFakeLoggerDebug).toHaveBeenCalledTimes(3);
     });
 
-    it('should be able to delete an Driver', async () => {
-        const response = await sut.execute(data);
+    it('should be able to delete an driver', async () => {
+        const response = await sut.execute(input);
 
-        expect(response).toHaveProperty('   driver_id');
+        expect(response).toHaveProperty('driver_id');
     });
 });
