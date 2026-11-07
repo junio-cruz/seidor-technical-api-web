@@ -17,13 +17,13 @@ import {
 
 import { Logger } from '../../../infra/logger/Logger';
 import { FastestValidator } from '../../../infra/validators/FastestValidator';
-import { vehicleResolver } from '../../../domain/entities/Vehicle';
+import { vehicleUsageResolver } from '../../../domain/entities/VehicleUsage';
 
 type RequestParams = {
   vehicle_usage_id: string;
 };
 
-export class FinishVehicleController implements IHttpController {
+export class FinishVehicleUsageController implements IHttpController {
   constructor(
     private readonly logger: Logger,
     private readonly requestValidator: IRequestValidator = new FastestValidator(),
@@ -59,6 +59,7 @@ export class FinishVehicleController implements IHttpController {
       return new HttpNotFoundError('VEHICLE_USAGE_NOT_FOUND');
     }
     
-    return new HttpOkResponse(vehicleUsage);
+    return new HttpOkResponse(vehicleUsageResolver(vehicleUsage));
+
   }
 }

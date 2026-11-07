@@ -3,32 +3,34 @@ import { UpdateVehicleUsageRepository } from '../../../infra/database/repositori
 import { VehicleUsage } from '../../../domain/entities/VehicleUsage';
 import { IUpdateVehicleUsageRepository } from '../../../domain/repositories/VehicleUsage/IUpdateVehicleUsageRepository';
 
-export type UpdateVehicleUsageUseCaseInput = {
+export type FinishVehicleUsageUseCaseInput = {
   vehicle_usage_id: string;
-  to_update: {
-    use_end_date?: Date;
-  };  
 };
 
-export type UpdateVehicleUsageUseCaseOutput = VehicleUsage | null;
+export type FinishVehicleUsageUseCaseOutput = VehicleUsage | null;
 
-export interface IUpdateVehicleUsageUseCase {
-  execute(input: UpdateVehicleUsageUseCaseInput): Promise<UpdateVehicleUsageUseCaseOutput>;
+export interface IFinishVehicleUsageUseCase {
+  execute(input: FinishVehicleUsageUseCaseInput): Promise<FinishVehicleUsageUseCaseOutput>;
 }
 
-export class UpdateVehicleUsageUseCase implements IUpdateVehicleUsageUseCase {
+export class FinishVehicleUsageUseCase implements IFinishVehicleUsageUseCase {
   constructor(
     private readonly logger: Logger,
     private updateVehicleUsageRepository: IUpdateVehicleUsageRepository = new UpdateVehicleUsageRepository(),
   ) {
-    this.logger.getChild('UpdateVehicleUsageUseCase');
+    this.logger.getChild('FinishVehicleUsageUseCase');
   }
 
   async execute(
-    input: UpdateVehicleUsageUseCaseInput,
-  ): Promise<UpdateVehicleUsageUseCaseOutput> {
+    input: FinishVehicleUsageUseCaseInput,
+  ): Promise<FinishVehicleUsageUseCaseOutput> {
     this.logger.debug('execute input', JSON.stringify(input));
-    const response = this.updateVehicleUsageRepository.execute(input);
+    const response = this.updateVehicleUsageRepository.execute({
+      vehicle_usage_id: input.vehicle_usage_id,
+      to_update: {
+        use_end_date: new Date(),
+      },
+    });
     this.logger.debug('update vehicle usage repository response', response);
     this.logger.debug('execute output', response);
     return response;

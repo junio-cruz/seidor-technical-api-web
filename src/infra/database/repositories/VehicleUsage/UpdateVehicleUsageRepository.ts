@@ -12,7 +12,7 @@ export class UpdateVehicleUsageRepository implements IUpdateVehicleUsageReposito
   ): Promise<UpdateVehicleUsageRepositoryOutput> {
     let response: any;
     const databaseSession = databaseInstance.getSession() as VehicleUsage[];
-    const vehicle_usage_found = databaseSession.find((vehicle_usage) => vehicle_usage.driver. === input.vehicle_usage_id) as any || null;
+    const vehicle_usage_found = databaseSession.find((vehicle_usage) => vehicle_usage.vehicle_usage_id === input.vehicle_usage_id) as any || null;
     if (!vehicle_usage_found){
       return null;
     }

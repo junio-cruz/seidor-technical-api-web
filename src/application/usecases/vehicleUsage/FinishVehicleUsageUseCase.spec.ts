@@ -1,16 +1,13 @@
-import { FakeLogger } from '../../../infra/logger/FakeLogger';
-import { UpdateVehicleUsageUseCase, UpdateVehicleUsageUseCaseInput } from './UpdateVehicleUsageUseCase';
-import { FakeUpdateVehicleUsageRepository } from '../../../infra/database/repositories/fakes/VehicleUsage/FakeUpdateVehicleUsageRepository';
+import { FakeUpdateVehicleUsageRepository } from '../../../infra/database/repositories/fakes/vehicleUsage/FakeUpdateVehicleUsageRepository';
+import { FakeLogger } from '../../../infra/logger/FakeLogger';  
+import { FinishVehicleUsageUseCase, FinishVehicleUsageUseCaseInput } from './FinishVehicleUsageUseCase';
 
 let logger: FakeLogger;
 let fakeUpdateVehicleUsageRepository: FakeUpdateVehicleUsageRepository;
-let sut: UpdateVehicleUsageUseCase;
+let sut: FinishVehicleUsageUseCase;
 
-const data: UpdateVehicleUsageUseCaseInput = {
+const data: FinishVehicleUsageUseCaseInput = {
     vehicle_usage_id: "30777c9d-4a8e-4897-962f-21be1d166fbe",
-    to_update: {
-        "use_end_date": new Date(),
-    }
 };
 
 describe('SignUpUseCase', () => {
@@ -29,7 +26,9 @@ describe('SignUpUseCase', () => {
 
         expect(spyFakeUpdateVehicleUsageRepository).toHaveBeenCalledWith({
             vehicle_usage_id: data.vehicle_usage_id,
-            to_update: data.to_update,
+            to_update: {
+                use_end_date: new Date(),
+            },
         });
     });
 

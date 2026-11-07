@@ -1,11 +1,11 @@
 import { LogLevel } from './Manager';
 import {EventEmitter} from "events";
 export class FakeLogger {
-  private logManager: EventEmitter;
+  private logManager!: EventEmitter;
 
-  private minLevel: number;
+  private minLevel!: number;
 
-  private module: string;
+  private module!: string;
 
   private readonly levels: { [key: string]: number } = {
     trace: 1,
